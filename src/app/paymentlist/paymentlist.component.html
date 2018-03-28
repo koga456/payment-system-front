@@ -7,7 +7,11 @@
       </div>
       <div class="form-group">
         <label for="searchSubjectName">品目</label>
-        <input type="text" class="form-control" id="searchSubjectName" value="">
+        <select #selectElem class="form-control" (change)="setCurrentItem(selectElem.value)">
+          <option *ngFor="let item of payitems" [value]="item.itemId">
+            {{item.name}}
+          </option>
+        </select>
       </div>
     </div>
 
