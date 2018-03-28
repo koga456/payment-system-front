@@ -15,6 +15,8 @@ import { PaymentdetailComponent } from './paymentdetail/paymentdetail.component'
 // サービスを追加する
 import { PayitemlistService } from './payitemlist.service';
 
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,7 @@ import { PayitemlistService } from './payitemlist.service';
     NgbModule.forRoot(),
     HttpModule,
     BrowserModule,
+    FormsModule,
     RouterModule.forRoot(
       [{ path: 'paymentlist', component: PaymentlistComponent }, { path: 'paymentdetail', component: PaymentdetailComponent }]
     )

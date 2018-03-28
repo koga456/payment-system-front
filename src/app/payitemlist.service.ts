@@ -18,7 +18,8 @@ export class PayitemlistService {
   }
 
   getItems(): Promise<Payitem[]> {
-    return this.http.get(this.getUrl).toPromise()
+    const body = {};
+    return this.http.post(this.getUrl, body).toPromise()
       .then(response => response.json().itemlist as Payitem[])
       .catch(this.handleError);
   }
