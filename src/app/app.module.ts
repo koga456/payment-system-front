@@ -5,19 +5,21 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 // NgbModuleをimportする
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { AppComponent } from './app.component';
-import { PaymentlistComponent } from './paymentlist/paymentlist.component';
 import { RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
+
+// コンポーネントを追加する
+import { PaymentlistComponent } from './paymentlist/paymentlist.component';
+import { PaymentdetailComponent } from './paymentdetail/paymentdetail.component';
 
 // サービスを追加する
 import { PayitemlistService } from './payitemlist.service';
 
-
 @NgModule({
   declarations: [
     AppComponent,
-    PaymentlistComponent
+    PaymentlistComponent,
+    PaymentdetailComponent
   ],
   imports: [
     // Rootモジュールに対してNgbModule.forRoot()をimport
@@ -25,7 +27,7 @@ import { PayitemlistService } from './payitemlist.service';
     HttpModule,
     BrowserModule,
     RouterModule.forRoot(
-      [{ path: 'paymentlist', component: PaymentlistComponent },]
+      [{ path: 'paymentlist', component: PaymentlistComponent }, { path: 'paymentdetail', component: PaymentdetailComponent }]
     )
   ],
   providers: [PayitemlistService],
