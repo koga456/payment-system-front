@@ -10,7 +10,7 @@
       <div class="form-group">
         <label for="searchSubjectName">品目</label>
         <select #selectElem class="form-control" (change)="setCurrentItem(selectElem.value)">
-          <option [value]=""></option>
+          <option [value]=-1></option>
           <option *ngFor="let item of payitems" [value]="item.itemId">
             {{item.name}}
           </option>
@@ -26,24 +26,23 @@
     </div>
   </div>
   <!-- 一覧リスト部分 -->
-
   <table class="table table-hover table-striped table-responsive">
     <thead>
       <tr>
         <th class="text-center" width='10%'>日付</th>
-        <th class="text-center" width='40%'>名称</th>
-        <th class="text-center" width='10%'>数量</th>
+        <th class="text-center" width='20%'>名称</th>
         <th class="text-center" width='20%'>単価</th>
-        <th class="text-center" width='20%'>金額</th>
+        <th class="text-center" width='20%'>数量</th>
+        <th class="text-center" width='30%'>金額</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let payment of payments">
         <td>{{payment.payDate}}</td>
         <td>{{payment.name}}</td>
-        <td class="text-right">{{payment.quantity}}</td>
-        <td class="text-right">{{payment.unitPrice}}</td>
-        <td class="text-right">{{payment.amount}}</td>
+        <td class="text-right">{{payment.unitPrice | number }}</td>
+        <td class="text-right">{{payment.quantity | number }}</td>
+        <td class="text-right">{{payment.amount | number }}</td>
       </tr>
     </tbody>
   </table>

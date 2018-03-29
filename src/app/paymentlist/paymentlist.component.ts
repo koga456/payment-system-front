@@ -59,7 +59,11 @@ export class PaymentlistComponent implements OnInit {
   // 選択した品目をカレントに設定する
   setCurrentItem(itemId: any): void {
     console.log(itemId);
-    this.curPayitem = this.payitems.filter(value => value.itemId === parseInt(itemId));
+    if (itemId == -1) {
+      this.curPayitem = [{ itemId: -1, name: '' }];
+    } else {
+      this.curPayitem = this.payitems.filter(value => value.itemId === parseInt(itemId));
+    }
     console.log(this.curPayitem);
   }
   search() {
@@ -69,7 +73,7 @@ export class PaymentlistComponent implements OnInit {
     if (this.searchPayDate != null && this.searchPayDate != "") {
       payDate = this.searchPayDate;
     }
-    if (this.curPayitem != null) {
+    if (this.curPayitem != null && this.curPayitem[0].itemId != -1) {
       itemId = this.curPayitem[0].itemId;
     }
     // 検索する
