@@ -32,14 +32,6 @@ export class PaymentlistComponent implements OnInit {
 
   // 支払(一覧表示用)
   payments: Payment[];
-  // = [
-  //   {
-  //     id: 1, payDate: '2018/03/01', itemId: 1,
-  //     unitPrice: 1,
-  //     quantity: 1,
-  //     amount: 1,
-  //     name: "ハローワールド",
-  //   }];
 
   // 初期処理
   ngOnInit() {
@@ -47,16 +39,18 @@ export class PaymentlistComponent implements OnInit {
     this.setUpPayDate();
     // 品目を取得する
     this.getItems();
+    // 初期表示は検索条件なしで検索する
+    this.search();
   }
 
-  // 支払日の初期化
+  // カレンダーを設定する
   setUpPayDate() {
-    this.searchPayDate = this.formatDate(new Date());
     $('#datepicker .date').datepicker({
       format: 'yyyy/mm/dd'
     });
   }
-  // 品目を初期化
+
+  // 品目を取得する
   getItems() {
     this.payitemlistService.getItems()
       .then(getItems => this.payitems = getItems);
@@ -81,20 +75,5 @@ export class PaymentlistComponent implements OnInit {
     // 検索する
     this.paymentlistService.getPayments(payDate, itemId)
       .then(getPayments => this.payments = getPayments);
-  }
-
-  private formatDate(date) {
-    let format = 'YYYY/MM/DD';
-    format = format.replace(/YYYY/g, date.getFullYear());
-    format = format.replace(/MM/g, ('0' + (date.getMonth() + 1)).slice(-2));
-    format = format.replace(/DD/g, ('0' + date.getDate()).slice(-2));
-    if (format.match(/S/g)) {
-      const milliSeconds = ('00' + date.getMilliseconds()).slice(-3);
-      const length = format.match(/S/g).length;
-      for (let i = 0; i < length; i++) {
-        format = format.replace(/S/, milliSeconds.substring(i, i + 1));
-      }
-    }
-    return format;
   }
 }

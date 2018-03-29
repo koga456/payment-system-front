@@ -4,7 +4,7 @@
       <div class="form-group">
         <div id="datepicker">
           <label for="datepicker">日付</label>
-          <input type="text" class="form-control date" [(ngModel)]="searchPayDate" name="searchPayDate">
+          <input type="text" class="form-control date" [(ngModel)]="searchPayDate" name="searchPayDate" #datePicker (blur)="searchPayDate = datePicker.value">
         </div>
       </div>
       <div class="form-group">
