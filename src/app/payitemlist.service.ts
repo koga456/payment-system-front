@@ -4,7 +4,6 @@ import { Payitem } from './payitem';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-
 @Injectable()
 export class PayitemlistService {
   private getUrl = "http://localhost:8080/api/getItemList/";

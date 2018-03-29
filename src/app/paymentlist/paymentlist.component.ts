@@ -1,27 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-
-// サービスを追加する
-import { PayitemlistService } from '../payitemlist.service';
-import { Payitem } from '../payitem';
+// カレンダー用のモジュールをインポートする
 import * as $ from 'jquery';
 import 'bootstrap-datepicker';
+
+// クラスを追加する
+import { Payitem } from '../payitem';
+import { Paymentdisp } from '../paymentdisp';
+// サービスを追加する
+import { PayitemlistService } from '../payitemlist.service';
+import { PaymentlistService } from '../paymentlist.service';
 
 @Component({
   selector: 'app-paymentlist',
   templateUrl: './paymentlist.component.html',
   styleUrls: ['./paymentlist.component.css']
 })
+
 export class PaymentlistComponent implements OnInit {
+  // コンストラクタ
+  constructor(
+    private payitemlistService: PayitemlistService,
+    private paymentlistService: PaymentlistService
+  ) { }
 
-  constructor(private payitemlistService: PayitemlistService) { }
-
+  // 支払日
+  searchPayDate: string;
   // 品目
   payitems: Payitem[];
-  // カレントの品目
+  // 品目(カレント)
   curPayitem: any;
 
-  searchPayDate: string;
+  // 支払(一覧表示用)
+  payments: Paymentdisp[];
+  // = [
+  //   {
+  //     id: 1, payDate: '2018/03/01', itemId: 1,
+  //     unitPrice: 1,
+  //     quantity: 1,
+  //     amount: 1,
+  //     name: "ハローワールド",
+  //   }];
 
   // 初期処理
   ngOnInit() {
@@ -31,13 +49,14 @@ export class PaymentlistComponent implements OnInit {
     this.getItems();
   }
 
+  // 支払日の初期化
   setUpPayDate() {
     this.searchPayDate = this.formatDate(new Date());
     $('#datepicker .date').datepicker({
       format: 'yyyy/mm/dd'
     });
   }
-  // 品目を取得する
+  // 品目を初期化
   getItems() {
     this.payitemlistService.getItems()
       .then(getItems => this.payitems = getItems);
@@ -48,6 +67,20 @@ export class PaymentlistComponent implements OnInit {
     console.log(itemId);
     this.curPayitem = this.payitems.filter(value => value.itemId === parseInt(itemId));
     console.log(this.curPayitem);
+  }
+  search() {
+    // 検索条件を設定する
+    let payDate;
+    let itemId;
+    if (this.searchPayDate != null && this.searchPayDate != "") {
+      payDate = this.searchPayDate;
+    }
+    if (this.curPayitem != null) {
+      itemId = this.curPayitem[0].itemId;
+    }
+    // 検索する
+    this.paymentlistService.getPayments(payDate, itemId)
+      .then(getPayments => this.payments = getPayments);
   }
 
   private formatDate(date) {

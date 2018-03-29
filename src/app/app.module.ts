@@ -16,6 +16,7 @@ import { PaymentdetailComponent } from './paymentdetail/paymentdetail.component'
 // サービスを追加する
 import { PayitemlistService } from './payitemlist.service';
 import { PaymentDetailService } from './paymentdetail.service';
+import { PaymentlistService } from './paymentlist.service';
 
 import { FormsModule } from '@angular/forms';
 
@@ -37,7 +38,7 @@ import { FormsModule } from '@angular/forms';
       [{ path: 'paymentlist', component: PaymentlistComponent }, { path: 'paymentdetail', component: PaymentdetailComponent }]
     )
   ],
-  providers: [PayitemlistService, PaymentDetailService],
+  providers: [PayitemlistService, PaymentlistService, PaymentDetailService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
