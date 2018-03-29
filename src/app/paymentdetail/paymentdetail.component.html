@@ -1,35 +1,50 @@
-<form class="form-horizontal" [formGroup]="paymentdetailForm" (ngSubmit)="show()">
+<h2>支払画面</h2>
+<form class="form-horizontal" [formGroup]="paymentdetailForm" (ngSubmit)="callPaymentDetailService()">
   <div class="row">
     <div class="col-sm-10 col-md-5">
       <div class="form-group">
-        <label for="paydate">日付</label>
-        <input class="form-control" id="paydate" name="paydate" type="text" [formControl]="paydate" >
-        <span *ngIf="paydate.errors?.required">日付は必須です。</span>
-        <span *ngIf="paydate.errors?.pattern">半角でYYYY/MM/DDの形式で入力してください。</span>
+        <div id="datepicker">
+          <label for="paydate">日付</label>
+          <input class="form-control date" id="paydate" name="paydate" type="text" [formControl]="paydate" #datePicker  (focus)="setPaydate(datePicker.value)" >
+          <span *ngIf="paydate.errors?.required">日付は必須です。</span>
+          <span *ngIf="paydate.errors?.pattern">YYYY/MM/DDの形式で入力してください。</span>
+        </div>
       </div>
       <div class="form-group">
         <label for="subjectName">品目</label>
-        <input type="text" class="form-control" id="subjectName" value="">
+        <select #selectElem class="form-control" id="subjectName" name="subjectName" (change)="setCurrentItem(selectElem.value)">
+          <option *ngFor="let item of payitems" [value]="item.itemId">
+            {{item.name}}
+          </option>
+        </select>
       </div>
       <div class="form-group">
         <label for="unitPrice">単価</label>
-        <input class="form-control" id="unitPrice" name="unitPrice" type="text" [formControl]="unitPrice" >
+        <input class="form-control" id="unitPrice" name="unitPrice" type="text" [formControl]="unitPrice"  (change)="calAmount()" >
         <span *ngIf="unitPrice.errors?.required">単価は必須です。</span>
         <span *ngIf="unitPrice.errors?.maxlength">6桁以内で入力してください。</span>
         <span *ngIf="unitPrice.errors?.pattern">形式が不正です。半角数字で金額を入力してください。</span>
       </div>
       <div class="form-group">
         <label for="quantity">数量</label>
-        <input class="form-control" id="quantity" name="quantity" type="text" [formControl]="quantity" >
+        <input class="form-control" id="quantity" name="quantity" type="text" [formControl]="quantity" (change)="calAmount()" >
+        <span *ngIf="quantity.errors?.required">数量は必須です。</span>
+        <span *ngIf="quantity.errors?.maxlength">3桁以内で入力してください。</span>
+        <span *ngIf="quantity.errors?.pattern">形式が不正です。半角数字で1個以上の数量を入力してください。</span>
+      </div>
+      <div class="form-group">
+        <label for="amount">金額</label>
+        <input class="form-control" id="amount" name="amount" type="text" readonly="readonly" [formControl]="amount" >
       </div>
     </div>
 
     <div class="col-sm-10 col-md-3">
-      <button id="search" class="btn btn-primary" style="width:10em">検索</button>
+      <button id="payment" class="btn btn-primary" style="width:10em" type="submit" [disabled]="paymentdetailForm.invalid" >支払い</button>
     </div>
     <div class="col-sm-10 col-md-3">
-      <button id="payment" class="btn btn-primary" style="width:10em">支払い</button>
+      <button id="back" routerLink="/paymentlist" class="btn btn-primary" style="width:10em">戻る</button>
     </div>
+    <div *ngIf="error" class="error">サーバとの通信でエラーが発生しました。</div>
 
   </div>
 </form>
