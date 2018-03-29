@@ -5,7 +5,7 @@ import 'bootstrap-datepicker';
 
 // クラスを追加する
 import { Payitem } from '../payitem';
-import { Paymentdisp } from '../paymentdisp';
+import { Payment } from '../payment';
 // サービスを追加する
 import { PayitemlistService } from '../payitemlist.service';
 import { PaymentlistService } from '../paymentlist.service';
@@ -31,7 +31,7 @@ export class PaymentlistComponent implements OnInit {
   curPayitem: any;
 
   // 支払(一覧表示用)
-  payments: Paymentdisp[];
+  payments: Payment[];
   // = [
   //   {
   //     id: 1, payDate: '2018/03/01', itemId: 1,

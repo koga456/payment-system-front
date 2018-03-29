@@ -5,6 +5,9 @@ import { Payment } from '../payment';
 import { PayitemlistService } from '../payitemlist.service';
 import { PaymentDetailService } from '../paymentdetail.service';
 import { Router } from '@angular/router';
+// カレンダー用のモジュールをインポートする
+import * as $ from 'jquery';
+import 'bootstrap-datepicker';
 
 @Component({
   selector: 'app-paymentdetail',
@@ -46,13 +49,13 @@ export class PaymentdetailComponent implements OnInit {
     Validators.maxLength(10),
     Validators.pattern('^[1-9]\\d{0,9}')
   ]);
-
   paymentdetailForm = this.builder.group({
     payDate: this.paydate,
     unitPrice: this.unitPrice,
     quantity: this.quantity,
     amount: this.amount
   });
+
 
   constructor(private builder: FormBuilder,
               private payitemlistService: PayitemlistService,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Paymentdisp } from './Paymentdisp';
+import { Payment } from './Payment';
 
 import { Http, URLSearchParams, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
@@ -13,12 +13,12 @@ export class PaymentlistService {
   constructor(private http: Http) { }
 
   // 支払一覧データの取得
-  getPayments(searchPayDate: string, itemId: number): Promise<Paymentdisp[]> {
+  getPayments(searchPayDate: string, itemId: number): Promise<Payment[]> {
     // 検索条件のJSONを作成する
     const body = { payDate: searchPayDate, itemId: itemId };
     // 検索する
     return this.http.post(this.getUrl, body, { headers: new Headers({ 'Content-Type': 'application/json' }) }).toPromise()
-      .then(response => response.json().paymentInfoList as Paymentdisp[])
+      .then(response => response.json().paymentInfoList as Payment[])
       .catch(this.handleError);
   }
 
