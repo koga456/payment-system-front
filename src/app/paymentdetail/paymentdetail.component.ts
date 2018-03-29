@@ -112,12 +112,13 @@ export class PaymentdetailComponent implements OnInit {
 
     console.log('start callPaymentDetailService');
 
-    let payment: Payment = new Payment(this.paydate.value,
-      this.curPayitem[0].itemId,
-      null,
-      this.unitPrice.value,
-      this.quantity.value,
-      this.amount.value);
+    let payment: Payment = new Payment();
+    payment.payDate = this.paydate.value;
+    payment.itemId =  this.curPayitem[0].itemId;
+    payment.name =  null;
+    payment.unitPrice = this.unitPrice.value;
+    payment.quantity = this.quantity.value;
+    payment.amount = this.amount.value;
 
     console.log(payment);
 

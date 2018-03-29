@@ -20,14 +20,7 @@ export class PaymentDetailService {
 
   public callPaymentDetailAPI(payment: Payment): Promise<Payitem[]> {
     console.log('start callPaymentDetailAPI');
-    const body = { 'payDate': payment.getPayDate(),
-                    'itemId': payment.getItemId(),
-                    'name': payment.getName(),
-                    'unitPrice': payment.getUnitPrice(),
-                    'quantity': payment.getQuantity(),
-                    'amount': payment.getAmount()
-    };
-    return this.http.post(this.getUrl, body,
+    return this.http.post(this.getUrl, payment,
       { headers: new Headers( { 'Content-Type': 'application/json' })}).toPromise()
       .then(response => response)
       .catch(this.handleError);
