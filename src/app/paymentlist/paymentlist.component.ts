@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-paymentlist',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentlistComponent implements OnInit {
 
-  constructor() { }
+  searchPayDate = new FormControl();
+  searchSubjectName = new FormControl();
+
+  paymentlistForm = this.builder.group({
+    payDate: this.searchPayDate,
+    subjectName: this.searchSubjectName,
+  });
+
+  constructor(private builder: FormBuilder) { }
 
   ngOnInit() {
+  }
+
+  show() {
+
   }
 
 }
