@@ -45,7 +45,7 @@ export class PaymentdetailComponent implements OnInit {
     Validators.pattern('^[1-9]\\d{0,3}')
   ]);
 
-  amount = new FormControl('計算不可',[
+  amount = new FormControl('単価を入力してください。',[
     Validators.maxLength(10),
     Validators.pattern('^[1-9]\\d{0,9}')
   ]);
