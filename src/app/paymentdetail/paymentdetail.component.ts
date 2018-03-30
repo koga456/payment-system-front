@@ -140,7 +140,10 @@ export class PaymentdetailComponent implements OnInit {
           const modalComplete = this.modalService.open(CompleteModalComponent);
           modalComplete.result.then(resultComplete => {
             this.router.navigate(['/paymentlist']);
-          });
+          })
+            .catch(resultComplete => {
+              this.router.navigate(['/paymentlist']);
+            });
         }
       }
     );
