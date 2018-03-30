@@ -1,0 +1,13 @@
+nav.page-header {
+  width: 100%;
+  color:white;
+  background-color: royalblue;
+  height: 50px;
+  text-align: center;
+  position: fixed;
+  z-index: 999;
+}
+
+div.content-component {
+  padding-top: 50px;
+}

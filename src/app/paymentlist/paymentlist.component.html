@@ -1,33 +1,46 @@
-<form class="form-horizontal">
+<div id="header">
   <div class="row">
-    <div class="col-sm-10 col-md-5">
-      <div class="form-group">
-        <div id="datepicker">
-          <label for="datepicker">日付</label>
-          <input type="text" class="form-control date" [(ngModel)]="searchPayDate" name="searchPayDate" #datePicker (blur)="searchPayDate = datePicker.value">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="searchSubjectName">品目</label>
-        <select #selectElem class="form-control" (change)="setCurrentItem(selectElem.value)">
-          <option [value]=-1></option>
-          <option *ngFor="let item of payitems" [value]="item.itemId">
-            {{item.name}}
-          </option>
-        </select>
-      </div>
-    </div>
-    <!-- ボタン部分 -->
-    <div class="col-sm-10 col-md-3">
-      <button id="search" class="btn btn-primary" style="width:10em" (click)="search()">検索</button>
-    </div>
-    <div class="col-sm-10 col-md-3">
-      <button id="payment" routerLink="/paymentdetail" class="btn btn-primary" style="width:10em">支払い</button>
+    <div class="col-12" style="text-align: center">
+      <h2>購入履歴一覧画面</h2>
     </div>
   </div>
-  <!-- 一覧リスト部分 -->
-  <table class="table table-hover table-striped table-responsive">
-    <thead class="thead-dark">
+  <div class="row">
+    <div class="col-12" style="text-align: center">
+      <button id="payment" routerLink="/paymentdetail" class="btn btn-primary" style="width:10em">新規支払い</button>
+    </div>
+  </div>
+</div>
+<div class="paymetlist-component">
+    <form class="form-horizontal" id="searchform">
+      <div class="row">
+        <div class="col-sm-4 col-md-5">
+          <div class="form-group">
+            <div id="datepicker">
+              <label for="datepicker">日付</label>
+              <input type="text" class="form-control date" [(ngModel)]="searchPayDate" name="searchPayDate" #datePicker (blur)="searchPayDate = datePicker.value">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-5">
+          <div class="form-group">
+            <label for="searchSubjectName">品目</label>
+            <select #selectElem class="form-control" (change)="setCurrentItem(selectElem.value)">
+              <option [value]=-1></option>
+              <option *ngFor="let item of payitems" [value]="item.itemId">
+                {{item.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-2">
+          <button id="search" class="btn btn-primary" style="width:10em" (click)="search()">検索</button>
+        </div>
+      </div>
+    </form>
+  <div class="row">
+    <!-- 一覧リスト部分 -->
+    <table class="table table-hover table-striped" id="paymentlist">
+      <thead>
       <tr>
         <th class="text-center" width='10%'>日付</th>
         <th class="text-center" width='20%'>名称</th>
@@ -35,8 +48,8 @@
         <th class="text-center" width='20%'>数量</th>
         <th class="text-center" width='30%'>金額</th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <tr *ngFor="let payment of payments">
         <td>{{payment.payDate}}</td>
         <td>{{payment.name}}</td>
@@ -44,6 +57,8 @@
         <td class="text-right">{{payment.quantity | number }}</td>
         <td class="text-right">{{payment.amount | number }}</td>
       </tr>
-    </tbody>
-  </table>
-</form>
+      </tbody>
+    </table>
+  </div>
+</div>
+

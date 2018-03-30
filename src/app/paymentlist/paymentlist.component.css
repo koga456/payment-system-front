@@ -1,0 +1,30 @@
+div#header {
+  width: 100%;
+  background-color: white;
+  text-align: center;
+  position: fixed;
+  z-index: 999;
+}
+
+div.paymetlist-component {
+  padding-top: 90px;
+}
+
+table#paymentlist {
+  text-align: center;
+  margin: 10px 50px 50px 50px;
+}
+
+form#searchform {
+  margin: 20px;
+}
+
+button#search {
+  color:black;
+  border-color: lightsteelblue;
+  background-color: lightsteelblue;
+}
+
+thead {
+  background-color: lightsteelblue;
+}

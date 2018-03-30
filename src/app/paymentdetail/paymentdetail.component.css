@@ -1,1 +1,23 @@
+span {
+  font-size: small;
+  color: red;
+}
 
+div#header {
+  width: 100%;
+  background-color: white;
+  text-align: center;
+  position: fixed;
+  z-index: 999;
+}
+
+form#paymetdetailform {
+  padding-top: 30px;
+  margin: 5% 15% 10% 15%;
+}
+
+button#back {
+  color:black;
+  border-color: lightsteelblue;
+  background-color: lightsteelblue;
+}
