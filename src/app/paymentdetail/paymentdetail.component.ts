@@ -4,10 +4,16 @@ import { Payitem } from '../payitem';
 import { Payment } from '../payment';
 import { PayitemlistService } from '../payitemlist.service';
 import { PaymentDetailService } from '../paymentdetail.service';
+import { ConfirmModalComponent } from './confirm-modal.component';
+
 import { Router } from '@angular/router';
 // カレンダー用のモジュールをインポートする
 import * as $ from 'jquery';
 import 'bootstrap-datepicker';
+import '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {CompleteModalComponent} from './complete-modal.component';
+import {ErrorModalComponent} from './error-modal.component';
 
 @Component({
   selector: 'app-paymentdetail',
@@ -60,7 +66,8 @@ export class PaymentdetailComponent implements OnInit {
   constructor(private builder: FormBuilder,
               private payitemlistService: PayitemlistService,
               private paymentDetailService: PaymentDetailService,
-              private router: Router) { }
+              private router: Router,
+              private modalService: NgbModal) { }
 
   // 初期処理
   ngOnInit() {
@@ -108,28 +115,34 @@ export class PaymentdetailComponent implements OnInit {
     }
   }
 
-  callPaymentDetailService() {
-
-    console.log('start callPaymentDetailService');
+  open() {
+    console.log('start openCofirmModal');
 
     let payment: Payment = new Payment();
     payment.payDate = this.paydate.value;
     payment.itemId =  this.curPayitem[0].itemId;
-    payment.name =  null;
+    payment.name =  this.curPayitem[0].name;
     payment.unitPrice = this.unitPrice.value;
     payment.quantity = this.quantity.value;
     payment.amount = this.amount.value;
 
     console.log(payment);
 
-    this.paymentDetailService.callPaymentDetailAPI(payment)
-      .then( response => {
-        this.router.navigate(['/paymentlist']);
-      })
-      .catch(error => {
-        this.error = true;
-      });
-
-    console.log('end callPaymentDetailService');
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.payment = payment;
+    modalRef.result.then(
+      result => {
+        if (result === 1) {
+          const modalError = this.modalService.open(ErrorModalComponent);
+          modalError.result.then(resultComplete => {
+          });
+        } else {
+          const modalComplete = this.modalService.open(CompleteModalComponent);
+          modalComplete.result.then(resultComplete => {
+            this.router.navigate(['/paymentlist']);
+          });
+        }
+      }
+    );
   }
 }

@@ -19,13 +19,19 @@ import { PaymentDetailService } from './paymentdetail.service';
 import { PaymentlistService } from './paymentlist.service';
 
 import { FormsModule } from '@angular/forms';
+import {ConfirmModalComponent} from './paymentdetail/confirm-modal.component';
+import {CompleteModalComponent} from './paymentdetail/complete-modal.component';
+import {ErrorModalComponent} from './paymentdetail/error-modal.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     PaymentlistComponent,
-    PaymentdetailComponent
+    PaymentdetailComponent,
+    ConfirmModalComponent,
+    CompleteModalComponent,
+    ErrorModalComponent
   ],
   imports: [
     // Rootモジュールに対してNgbModule.forRoot()をimport
@@ -38,6 +44,7 @@ import { FormsModule } from '@angular/forms';
       [{ path: 'paymentlist', component: PaymentlistComponent }, { path: 'paymentdetail', component: PaymentdetailComponent }]
     )
   ],
+  entryComponents: [ConfirmModalComponent, CompleteModalComponent, ErrorModalComponent ],
   providers: [PayitemlistService, PaymentlistService, PaymentDetailService],
   bootstrap: [AppComponent]
 })
