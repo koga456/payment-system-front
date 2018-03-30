@@ -34,7 +34,7 @@ export class PaymentdetailComponent implements OnInit {
     Validators.pattern('\\d{4}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])')
   ]);
 
-  unitPrice = new FormControl(1,[
+  unitPrice = new FormControl('',[
     Validators.required,
     Validators.maxLength(6),
     Validators.pattern('^[1-9]\\d{0,5}')
@@ -45,7 +45,7 @@ export class PaymentdetailComponent implements OnInit {
     Validators.pattern('^[1-9]\\d{0,3}')
   ]);
 
-  amount = new FormControl(1,[
+  amount = new FormControl('計算不可',[
     Validators.maxLength(10),
     Validators.pattern('^[1-9]\\d{0,9}')
   ]);
